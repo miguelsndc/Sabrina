@@ -1,0 +1,20 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c11",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "main.o",
+      "main.c"
+    ],
+    "directory": "/home/miguel/Documents/projects/sabrina",
+    "file": "/home/miguel/Documents/projects/sabrina/main.c",
+    "output": "/home/miguel/Documents/projects/sabrina/main.o"
+  }
+]
