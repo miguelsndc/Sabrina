@@ -27,8 +27,9 @@ Some of the planned keywords are:
 
 Because keywords can contain several words, the scanner uses longest-match
 recognition. It keeps reading while a phrase may still form a keyword and emits
-the longest complete match it found. The parser and VM only receive regular
-token types, so the unusual syntax remains isolated inside the scanner.
+the longest complete match it found The parser and VM only receive regular
+token types, so the unusual syntax remains isolated inside the scanner, for this i intend 
+to use a Trie (a prefix tree) to walk alongside the text input, and expand from that to infinity and beyond
 
 ```text
 AND I GOT THIS ONE BOY answer THATS THAT 6 SO OFTEN 7;
