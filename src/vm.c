@@ -74,8 +74,7 @@ void vm_init(void) { reset_stack(); }
 
 void vm_free(void) {}
 
-InterpretResult vm_interpret(Chunk *chunk) {
-  vm.chunk = chunk;
-  vm.ip = chunk->code;
-  return run();
+InterpretResult vm_interpret(const char* source) {
+  compile(source);
+  return INTERPRET_OK;
 }
