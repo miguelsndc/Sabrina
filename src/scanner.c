@@ -1,8 +1,10 @@
 #include "scanner.h"
+#include "trie.h"
 #include <stdbool.h>
 #include <string.h>
 
 Scanner scanner;
+Trie trie = {.count = 1};
 
 static bool is_at_end(void) { return *scanner.current == '\0'; }
 
@@ -103,17 +105,47 @@ static bool is_alpha(char c) {
   return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_');
 }
 
+static TokenType identifier_type(void) {
+  int node = 0;
+  for (const char *p = scanner.start; p < scanner.current; p++) {
+    node = trie_next(&trie, node, *p);
+    if (node == 0) {
+      return TOKEN_IDENTIFIER;
+    }
+  }
+  if (trie.terminal[node]) {
+    return trie.token[node];
+  }
+  return TOKEN_IDENTIFIER;
+}
+
 static Token identifier(void) {
   while (is_alpha(peek()) || is_digit(peek()))
     advance();
-  // todo: descobrir se a palavra é reservada
-  return make_token(TOKEN_IDENTIFIER);
+  return make_token(identifier_type());
 }
 
 void scanner_init(const char *source) {
   scanner.start = source;
   scanner.current = source;
   scanner.line = 1;
+
+  trie_insert(&trie, "and", TOKEN_AND);
+  trie_insert(&trie, "class", TOKEN_CLASS);
+  trie_insert(&trie, "else", TOKEN_ELSE);
+  trie_insert(&trie, "false", TOKEN_FALSE);
+  trie_insert(&trie, "for", TOKEN_FOR);
+  trie_insert(&trie, "fun", TOKEN_FUN);
+  trie_insert(&trie, "if", TOKEN_IF);
+  trie_insert(&trie, "nil", TOKEN_NIL);
+  trie_insert(&trie, "or", TOKEN_OR);
+  trie_insert(&trie, "print", TOKEN_PRINT);
+  trie_insert(&trie, "return", TOKEN_RETURN);
+  trie_insert(&trie, "super", TOKEN_SUPER);
+  trie_insert(&trie, "this", TOKEN_THIS);
+  trie_insert(&trie, "true", TOKEN_TRUE);
+  trie_insert(&trie, "var", TOKEN_VAR);
+  trie_insert(&trie, "while", TOKEN_WHILE);
 }
 
 Token scanner_get_token(void) {
