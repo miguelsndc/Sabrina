@@ -1,5 +1,6 @@
 #include "vm.h"
 #include "chunk.h"
+#include "compiler.h"
 #include "value.h"
 #include <stdbool.h>
 #include <stdio.h>
@@ -74,7 +75,7 @@ void vm_init(void) { reset_stack(); }
 
 void vm_free(void) {}
 
-InterpretResult vm_interpret(const char* source) {
+InterpretResult vm_interpret(const char *source) {
   compile(source);
   return INTERPRET_OK;
 }

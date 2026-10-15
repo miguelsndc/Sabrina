@@ -23,6 +23,6 @@ void vm_init(void);
 void vm_free(void);
 void vm_st_push(Value);
 Value vm_st_pop(void);
-InterpretResult vm_interpret(Chunk *chunk);
+InterpretResult vm_interpret(const char *source);
 
 #endif
